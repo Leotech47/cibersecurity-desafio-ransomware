@@ -41,6 +41,7 @@
 
 Ao seguir essas dicas de prevenção, você pode reduzir significativamente o risco de ser vítima de um ataque de ransomware.
 
+---
 
 ## Agora vamos analisar cada linha do código do arquivo Encripter.py:
 
