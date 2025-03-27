@@ -43,7 +43,7 @@ Ao seguir essas dicas de prevenção, você pode reduzir significativamente o ri
 
 ---
 
-## Agora vamos analisar cada linha do código do arquivo Encripter.py:
+## Agora vamos analisar cada linha do código do arquivo Encrypter.py:
 
 ```python
 import os
@@ -101,5 +101,56 @@ Em resumo, o código lê um arquivo, criptografa seu conteúdo usando AES, exclu
 
 ---
 
-## Agora vamos analisar cada linha do código do arquivo Descripter.py:
-- 
+## Agora vamos analisar cada linha do código do arquivo Decrypter.py:
+- Com certeza! Vamos analisar cada linha do código Python fornecido, que realiza a descriptografia de um arquivo criptografado por um ransomware simulado:
+
+```python
+import os
+import pyaes
+```
+
+* **`import os`**: Esta linha importa o módulo `os` do Python. O módulo `os` fornece uma interface para interagir com o sistema operacional, incluindo funções para manipulação de arquivos e diretórios. Neste código, ele é usado para excluir o arquivo criptografado após a descriptografia.
+* **`import pyaes`**: Esta linha importa a biblioteca `pyaes`, que fornece implementações do algoritmo de criptografia AES (Advanced Encryption Standard). Neste caso, ela é usada para descriptografar o arquivo.
+
+```python
+file_name = "teste.txt.ransomwaretroll"
+file = open(file_name, "rb")
+file_data = file.read()
+file.close()
+```
+
+* **`file_name = "teste.txt.ransomwaretroll"`**: Esta linha define a variável `file_name` com o nome do arquivo criptografado, que neste caso é "teste.txt.ransomwaretroll".
+* **`file = open(file_name, "rb")`**: Esta linha abre o arquivo criptografado no modo de leitura binária ("rb"). Isso é necessário porque os dados criptografados são representados como bytes.
+* **`file_data = file.read()`**: Esta linha lê todo o conteúdo do arquivo criptografado e armazena os bytes criptografados na variável `file_data`.
+* **`file.close()`**: Esta linha fecha o arquivo criptografado, liberando os recursos do sistema operacional associados a ele.
+
+```python
+key = b"testeransomwares"
+aes = pyaes.AESModeOfOperationCTR(key)
+decrypt_data = aes.decrypt(file_data)
+```
+
+* **`key = b"testeransomwares"`**: Esta linha define a chave de descriptografia, que deve ser a mesma chave usada para criptografar o arquivo. A chave é representada como uma sequência de bytes (prefixada por `b`).
+* **`aes = pyaes.AESModeOfOperationCTR(key)`**: Esta linha cria um objeto `AESModeOfOperationCTR` da biblioteca `pyaes`, configurando o modo de operação do AES como Counter (CTR) e usando a chave definida anteriormente.
+* **`decrypt_data = aes.decrypt(file_data)`**: Esta linha descriptografa os dados criptografados armazenados em `file_data` usando o objeto AES configurado e armazena os bytes descriptografados na variável `decrypt_data`.
+
+```python
+os.remove(file_name)
+```
+
+* **`os.remove(file_name)`**: Esta linha usa a função `remove()` do módulo `os` para excluir o arquivo criptografado "teste.txt.ransomwaretroll". Após a descriptografia, o arquivo criptografado não é mais necessário.
+
+```python
+new_file = "teste.txt"
+new_file = open(f'{new_file}', "wb")
+new_file.write(decrypt_data)
+new_file.close()
+```
+
+* **`new_file = "teste.txt"`**: Esta linha define o nome do novo arquivo, que será o arquivo descriptografado original "teste.txt".
+* **`new_file = open(f'{new_file}', "wb")`**: Esta linha abre um novo arquivo com o nome definido anteriormente no modo de escrita binária ("wb").
+* **`new_file.write(decrypt_data)`**: Esta linha escreve os dados descriptografados armazenados em `decrypt_data` no novo arquivo.
+* **`new_file.close()`**: Esta linha fecha o novo arquivo, garantindo que os dados sejam gravados no disco e liberando os recursos do sistema operacional.
+
+Em resumo, o código lê um arquivo criptografado, descriptografa seu conteúdo usando a chave AES, exclui o arquivo criptografado e salva o conteúdo descriptografado em um novo arquivo com o nome original do arquivo.
+
